@@ -1,0 +1,10 @@
+@model IEnumerable<SchoolDb.Models.Teacher>
+
+    <h1>Teachers</h1>
+
+    @foreach (Teacher teacher in Model)
+    {
+        <div>
+            <a href="">@teacher.TeacherFName @teacher.TeacherLName</a>
+        </div>
+    }
