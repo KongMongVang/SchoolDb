@@ -5,6 +5,6 @@
     @foreach (Teacher teacher in Model)
     {
         <div>
-            <a href="">@teacher.TeacherFName @teacher.TeacherLName</a>
+            <a href="/TeacherPage/Show/@teacher.TeacherId">@teacher.TeacherFName @teacher.TeacherLName</a>
         </div>
     }

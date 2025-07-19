@@ -51,3 +51,4 @@
 /Users/kongvang/Desktop/Humber Web Development Term 1/Back-End Web Development 1 HTTP-5125/SchoolDb/SchoolDb/bin/Debug/net8.0/runtimes/win/lib/net8.0/System.Windows.Extensions.dll
 /Users/kongvang/Desktop/Humber Web Development Term 1/Back-End Web Development 1 HTTP-5125/SchoolDb/SchoolDb/obj/Debug/net8.0/SchoolDb.csproj.AssemblyReference.cache
 /Users/kongvang/Desktop/Humber Web Development Term 1/Back-End Web Development 1 HTTP-5125/SchoolDb/SchoolDb/obj/Debug/net8.0/SchoolDb.csproj.Up2Date
+/Users/kongvang/Desktop/Humber Web Development Term 1/Back-End Web Development 1 HTTP-5125/SchoolDb/SchoolDb/obj/Debug/net8.0/SchoolDb.sourcelink.json
