@@ -31,5 +31,34 @@ namespace SchoolDb.Controllers
 
             return View(TeacherDetails);
         }
+        // GET: Teacher/New -> A webpage that asks the user for the new teacher information
+        [HttpGet]
+
+        public IActionResult New()
+        {
+            return View();
+        }
+
+        // POST: TeacherPage/New
+        // Headers:
+        // application/x-www.form-unlocked
+        // Request Body: &TeacherFname={TeacherFname}&TeacherFname={TeacherLname}
+        // Add -> Adds teacher and directs to List.cshtml
+        [HttpPost]
+
+        public IActionResult Create(string TeacherFName, string TeacherLName, string EmployeeNumber, DateTime HireDate, decimal Salary)
+        {
+            Teacher NewTeacher = new Teacher();
+            NewTeacher.TeacherFName = TeacherFName;
+            NewTeacher.TeacherLName = TeacherLName;
+            NewTeacher.EmployeeNumber = EmployeeNumber;
+            NewTeacher.HireDate = HireDate;
+            NewTeacher.Salary = Salary;
+
+            int TeacherId = _api.AddTeacher(NewTeacher);
+
+            // Directs to /TeacherPage/List.cshtml
+            return RedirectToAction("Show", new {id = TeacherId });
+        }
     }
 }

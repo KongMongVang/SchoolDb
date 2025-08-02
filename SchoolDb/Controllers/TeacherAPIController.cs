@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 
 using Microsoft.AspNetCore.Mvc;
 using SchoolDb.Models;
+using System.Diagnostics;
 
 namespace SchoolDb.Controllers
 {
@@ -83,6 +84,34 @@ namespace SchoolDb.Controllers
             Connection.Close(); // close the connection 
 
             return Example;
+        }
+
+        [HttpPost(template: "AddTeacher")]
+
+        public int AddTeacher([FromBody] Teacher NewTeacher)
+        {
+            Debug.WriteLine($"Teacher TeacherFname {NewTeacher.TeacherFName}");
+            Debug.WriteLine($"Teacher TeacherLname {NewTeacher.TeacherLName}");
+
+            string query = "insert into teachers (teacherid, teacherfname, teacherlname, employeenumber, hiredate, salary) values (0, @TeacherFname, @TeacherLname, @EmployeeNumber, CURRENT_DATE(), @Salary)";
+
+            int TeacherId = -1;
+            using (MySqlConnection Conn = School.AccessDatabase())
+            {
+
+                Conn.Open();
+
+                MySqlCommand Command = Conn.CreateCommand();
+                Command.CommandText = query;
+                Command.Parameters.AddWithValue("@TeacherFname", NewTeacher.TeacherFName);
+                Command.Parameters.AddWithValue("@TeacherLname", NewTeacher.TeacherLName);
+                Command.Parameters.AddWithValue("@EmployeeNumber", NewTeacher.EmployeeNumber);
+                Command.Parameters.AddWithValue("@Salary", NewTeacher.Salary);
+
+                Command.ExecuteNonQuery();
+                TeacherId = Convert.ToInt32(Command.LastInsertedId);
+            }
+            return TeacherId;
         }
 
     }
