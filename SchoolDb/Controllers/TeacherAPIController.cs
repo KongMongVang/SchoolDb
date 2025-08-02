@@ -4,6 +4,8 @@ using MySql.Data.MySqlClient;
 using Microsoft.AspNetCore.Mvc;
 using SchoolDb.Models;
 using System.Diagnostics;
+using ZstdSharp.Unsafe;
+using System.Reflection.Metadata.Ecma335;
 
 namespace SchoolDb.Controllers
 {
@@ -114,6 +116,33 @@ namespace SchoolDb.Controllers
             return TeacherId;
         }
 
+        // <summary>
+        // This code deletes the teacher if matching the id received from the database
+        // </summary>
+        // <param name="id">The primary Key of TeacherID</param>
+        // <returns>The number of rows affected by delete</returns>
+        // DELETE api/TeacherAPI/DeleteTeacher/11 ->1
+        // </example>
+        [HttpDelete(template: "DeleteTeacher/{id}")]
+
+        public int DeleteTeacher(int id)
+        {
+            string query = "delete from teachers where teacherid=@id";
+            int RowsAffected = 0;
+
+            using (MySqlConnection Conn = _context.AccessDatabase())
+            {
+                Conn.Open();
+
+                MySqlCommand Command = Conn.CreateCommand();
+                Command.CommandText = query;
+                Command.Parameters.AddWithValue("@id", id);
+
+                RowsAffected = Command.ExecuteNonQuery();
+            }
+
+            return RowsAffected;
+        }
     }
 }
 

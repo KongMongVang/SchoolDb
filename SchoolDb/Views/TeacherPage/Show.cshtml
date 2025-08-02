@@ -1,6 +1,7 @@
 @model SchoolDb.Models.Teacher
 
 <h2>@Model.TeacherFName @Model.TeacherLName</h2>
+<a href="/TeacherPage/DeleteConfirm/@Model.TeacherId">Delete</a>
 <p>Teacher ID: @Model.TeacherId</p>
 <p>Employee Number: @Model.EmployeeNumber</p>
 <p>Hire Date: @Model.HireDate</p>

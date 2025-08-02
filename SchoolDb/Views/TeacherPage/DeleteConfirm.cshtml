@@ -1,0 +1,10 @@
+@model SchoolDb.Models.Teacher
+
+<h2>Are you sure you want to delete this Teacher from the records</h2>
+<p>Teacher Name:  @Model.TeacherFName</p>
+
+<a href="/TeacherPage/Show/@Model.TeacherId">No, Go back</a>
+
+<form method="POST" action="/TeacherPage/Delete/@Model.TeacherId">
+    <input type="submit" value="Yes, Delete" />
+</form>
