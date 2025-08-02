@@ -130,7 +130,7 @@ namespace SchoolDb.Controllers
             string query = "delete from teachers where teacherid=@id";
             int RowsAffected = 0;
 
-            using (MySqlConnection Conn = _context.AccessDatabase())
+            using (MySqlConnection Conn = School.AccessDatabase())
             {
                 Conn.Open();
 
