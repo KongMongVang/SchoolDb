@@ -1,0 +1,33 @@
+@model SchoolDb.Models.Teacher
+
+<h2>Edits the Teacher information</h2>
+<form method="POST" action="/TeacherPage/Update/@Model.TeacherId">
+    <div>
+        <label for="TeacherFName">Teacher First Name: </label>
+        <input id="TeacherFName" type="text" name="TeacherFName" value="@Model.TeacherFName" />
+    </div>
+
+    <div>
+        <label for="TeacherLName">Teacher Last Name: </label>
+        <input id="TeacherLName" type="text" name="TeacherLName" value="@Model.TeacherLName" />
+    </div>
+
+    <div>
+        <label for="EmployeeNumber">Employee Number: </label>
+        <input id="EmployeeNumber" type="text" name="EmployeeNumber" value="@Model.EmployeeNumber" />
+    </div>
+
+    <div>
+        <label for="HireDate">Hire Date: </label>
+        <input id="HireDate" type="text" name="HireDate" value="@Model.HireDate" />
+    </div>
+
+    <div>
+        <label for="Salary">Salary: </label>
+        <input id="Salary" type="text" name="Salary" value="@Model.Salary" />
+    </div>
+
+    <div>
+        <input type="submit" value="Edit Teacher" />
+    </div>
+</form>

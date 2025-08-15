@@ -83,6 +83,34 @@ namespace SchoolDb.Controllers
             return RedirectToAction("List");
         }
 
+        // GET: /TeacherPage/Edit/{id} -> A webpage that ask the user what fields of a teacher to update
+
+        public IActionResult Edit(int id)
+        {
+            Teacher SelectedTeacher = _api.TeacherInfo(id);
+            return View(SelectedTeacher);
+        }
+
+        // POST: /TeacherPage/Update/{id}
+        // FORM DATA:
+        // Headers: Content-Type application/x-www-form-urlencoded
+        // TeacherFname={TeacherFname}&TeacherLname={TeacherLname}
+        [HttpPost]
+        public IActionResult Update(int id, string TeacherFName, string TeacherLName, string EmployeeNumber, DateTime HireDate, decimal Salary)
+        {
+            Teacher UpdatedTeacher = new Teacher();
+
+            UpdatedTeacher.TeacherFName = TeacherFName;
+            UpdatedTeacher.TeacherLName = TeacherLName;
+            UpdatedTeacher.EmployeeNumber = EmployeeNumber;
+            UpdatedTeacher.HireDate = HireDate;
+            UpdatedTeacher.Salary = Salary;
+
+            _api.UpdateTeacher(id, UpdatedTeacher);
+
+            // Redirects to /TeacherPage/Show/{id}
+            return RedirectToAction("Show", new { id = id });
+        }
     }
     
 }

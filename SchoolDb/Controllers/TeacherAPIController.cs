@@ -6,6 +6,7 @@ using SchoolDb.Models;
 using System.Diagnostics;
 using ZstdSharp.Unsafe;
 using System.Reflection.Metadata.Ecma335;
+using Mysqlx.Crud;
 
 namespace SchoolDb.Controllers
 {
@@ -142,6 +143,44 @@ namespace SchoolDb.Controllers
             }
 
             return RowsAffected;
+        }
+
+        /// <summary>
+        /// Receives teacher information and updates the corresponding teacher
+        /// </summary>
+        /// <param name="id">The primary key of the teacher</param>
+        /// <returns>
+        /// The teacher object from the database after the update
+        /// </returns>
+        /// <example>
+        /// PUT: api/Teacher/UpdatedTeacher/20
+        /// PUT DATA:
+        /// {"TeacherFname":"Andy", "TeacherLname":"Sandburg", "EmployeeNumber": "T510", "HireDate":"05-09-2015", "Salary":80} ->
+        /// -> {"TeacherID":20, "TeacherFname":"Andy", "TeacherLname":"Sandburg", "EmployeeNumber": "T510", "HireDate":"05-09-2015", "Salary":80}
+        /// </example>
+        [HttpPut(template: "UpdateTeacher/{id}")]
+
+        public Teacher UpdateTeacher(int id, [FromBody] Teacher UpdatedTeacher)
+        {
+        using (MySqlConnection Connection = School.AccessDatabase())
+        {
+            //Open the connection to the database
+            Connection.Open();
+            //Write a query
+            string query = "update teachers set teacherfname=@TeacherFName, teacherlname=@TeacherLName, employeenumber=@EmployeeNumber, hiredate=@HireDate, salary=@Salary where teacherid = @id";
+
+            MySqlCommand Command = Connection.CreateCommand();
+            Command.CommandText = query;
+            Command.Parameters.AddWithValue("@TeacherFName", UpdatedTeacher.TeacherFName);
+            Command.Parameters.AddWithValue("@TeacherLName", UpdatedTeacher.TeacherLName);
+            Command.Parameters.AddWithValue("@EmployeeNumber", UpdatedTeacher.EmployeeNumber);
+            Command.Parameters.AddWithValue("@HireDate", UpdatedTeacher.HireDate);
+            Command.Parameters.AddWithValue("@Salary", UpdatedTeacher.Salary);
+            Command.Parameters.AddWithValue("@id", id);
+
+            Command.ExecuteNonQuery();
+                }
+        return TeacherInfo(id);
         }
     }
 }
